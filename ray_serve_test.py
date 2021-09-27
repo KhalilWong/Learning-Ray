@@ -32,7 +32,6 @@ def elogin(spath, data):
     #
     path = spath + '/api/v1/user/auth/eaccess_token_login/'
     r = requests.post(path, data = data)
-    print(r)
     dict = r.json()
     return (dict['user_id'], dict['key'])
     #return dict
@@ -90,19 +89,18 @@ print(serve.list_deployments())
 print(ray.get_gpu_ids())
 print(ray.available_resources())
 '''
-app_id = 'C8Dk6aAfhiWQp8s*lrDljAvg'#'&^RhBB7y@cR1xSt!SYCuXGBQ'
-app_secret = 'PPWxM@1@(ZbC$Fh^FUoT8LP240Jk9C'#'NL5xWEEDtKz0l0$G#hsfGdU#W$Sq75'
-username = 'jiansheyinhang'#'CCB'
-secret_id = '5799ec91404d4c4994a293d83fe7760e'#'43d1334265ba4236862dc607b7a39b3d'
-server_path = 'http://vhop.xmov.ai'#'http://120.92.212.177:1700'
+app_id = '&^RhBB7y@cR1xSt!SYCuXGBQ'#'C8Dk6aAfhiWQp8s*lrDljAvg'
+app_secret = 'NL5xWEEDtKz0l0$G#hsfGdU#W$Sq75'#'PPWxM@1@(ZbC$Fh^FUoT8LP240Jk9C'
+username = 'CCB'#'jiansheyinhang'
+secret_id = '43d1334265ba4236862dc607b7a39b3d'#'5799ec91404d4c4994a293d83fe7760e'
+server_path = 'http://120.92.212.177:1700'#'http://vhop.xmov.ai'
 data = {
     'app_id': app_id,
     'access_token': get_access_token(app_id, app_secret, username),
     'username': username,
-    'secret_id': secret_id,
-    'offline': False,
-    'is_test': False
+    'secret_id': secret_id
 }
+#
 uid, key = elogin(server_path, data)
 print(uid, key)
 data.update({'user_id': uid, 'key': key})
@@ -111,10 +109,10 @@ print(tmp)
 tmp = chat(server_path, data, '你好')
 print(tmp)
 r = requests.get(
-    'http://vhop.xmov.ai/api/v1/dmp/digital/resp/offline_video_task_status/',
+    server_path + '/api/v1/dmp/digital/resp/offline_video_task_status/',
     headers = {'Content-Type': 'application/json'},
     params = {'digital_id': '1'}
 )
 print(r.text)
-r = requests.get('http://vhop.xmov.ai/api/v1/dmp/digital/')
+r = requests.get(server_path + '/api/v1/dmp/digital/')
 print(r.text)
