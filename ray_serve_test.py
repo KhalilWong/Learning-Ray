@@ -102,7 +102,8 @@ data = {
 }
 #
 uid, key = elogin(server_path, data)
-print(uid, key)
+print('USER_ID: ', uid)
+print('KEY: ', key)
 data.update({'user_id': uid, 'key': key})
 tmp = open(server_path, data)
 print(tmp)
